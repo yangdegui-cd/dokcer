@@ -1,0 +1,19 @@
+services:
+  vaultwarden:
+    image: "vaultwarden/server-mysql:latest"
+    container_name: "vaultwarden"
+    hostname: "vaultwarden"
+    depends_on:
+     vaultwarden-db:
+      condition: service_healthy
+    restart: always
+    env_file:
+     - .env
+    volumes:
+     - ./data:/data/
+    environment:
+     - DATABASE_URL=mysql://<vaultwarden_user>:${VAULTWARDEN_MYSQL_PASSWORD}@vaultwarden-db/${database}
+     - ADMIN_TOKEN=<some_random_token_as_per_above_explanation> # https://github.com/dani-garcia/vaultwarden/wiki/Enabling-admin-page
+     - RUST_BACKTRACE=1
+    ports:
+     - "80:80"
