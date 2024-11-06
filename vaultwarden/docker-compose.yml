@@ -1,17 +1,13 @@
 services:
   vaultwarden:
-    image: "vaultwarden/server-mysql:latest"
-    container_name: "vaultwarden"
-    hostname: "vaultwarden"
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
     restart: always
-    env_file:
-     - .env
-    volumes:
-     - ./data:/data/
     environment:
-     - DATABASE_URL=mysql://root:ydgui6987528@bj-cdb-mr8p7rc2.sql.tencentcdb.com:25808/bitwarden
-     - ADMIN_TOKEN=77c85a89-2687-4599-ae14-8de295c6b893 # https://github.com/dani-garcia/vaultwarden/wiki/Enabling-admin-page
-     - RUST_BACKTRACE=1
+      DOMAIN: "https://pswd.ydgui.com" # 使用反向代理时必填；您的域名；Vaultwarden 需要知道它是 https 才能正确处理附件
+      SIGNUPS_ALLOWED: "true" # 创建账户后，使用 "false" 停用此选项，这样就不会有陌生人注册了
+      ADMIN_TOKEN: <you-token>
+    volumes:
+      - ./data:/data # : 前面的路径可以修改
     ports:
-     - 80:1090
-
+      - 11001:80 # 您可以将 11001 替换为您喜欢的端口
