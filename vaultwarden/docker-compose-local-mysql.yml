@@ -1,11 +1,8 @@
 services:
   vaultwarden:
-    image: "vaultwarden/server-mysql:latest"
-    container_name: "vaultwarden"
-    hostname: "vaultwarden"
-    depends_on:
-     vaultwarden-db:
-      condition: service_healthy
+    image: vaultwarden/server-mysql:latest
+    container_name: vaultwarden
+    hostname: vaultwarden
     restart: always
     env_file:
      - .env
