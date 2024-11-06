@@ -1,0 +1,17 @@
+services:
+  vaultwarden:
+    image: "vaultwarden/server-mysql:latest"
+    container_name: "vaultwarden"
+    hostname: "vaultwarden"
+    restart: always
+    env_file:
+     - .env
+    volumes:
+     - ./data:/data/
+    environment:
+     - DATABASE_URL=mysql://root:ydgui6987528@bj-cdb-mr8p7rc2.sql.tencentcdb.com:25808/bitwarden
+     - ADMIN_TOKEN=77c85a89-2687-4599-ae14-8de295c6b893 # https://github.com/dani-garcia/vaultwarden/wiki/Enabling-admin-page
+     - RUST_BACKTRACE=1
+    ports:
+     - 80:1090
+
